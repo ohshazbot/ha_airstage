@@ -26,8 +26,10 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from .const import (
     DOMAIN as AIRSTAGE_DOMAIN,
     FAN_QUIET,
-    VERTICAL_HIGH,
     VERTICAL_HIGHEST,
+    VERTICAL_HIGH,
+    VERTICAL_CENTER_HIGH,
+    VERTICAL_CENTER_LOW,
     VERTICAL_LOW,
     VERTICAL_LOWEST,
     VERTICAL_SWING,
@@ -74,6 +76,8 @@ HA_FAN_TO_FUJITSU = {
 HA_SWING_TO_FUJITSU = {
     VERTICAL_HIGHEST: constants.VerticalSwingPosition.HIGHEST,
     VERTICAL_HIGH: constants.VerticalSwingPosition.HIGH,
+    VERTICAL_CENTER_HIGH: constants.VerticalPositionDescriptors.CENTER_HIGH,
+    VERTICAL_CENTER_LOW: constants.VerticalPositionDescriptors.CENTER_LOW,
     VERTICAL_LOW: constants.VerticalSwingPosition.LOW,
     VERTICAL_LOWEST: constants.VerticalSwingPosition.LOWEST,
 }
@@ -81,6 +85,8 @@ HA_SWING_TO_FUJITSU = {
 FUJITSU_SWING_TO_HA = {
     constants.VerticalPositionDescriptors.HIGHEST: VERTICAL_HIGHEST,
     constants.VerticalPositionDescriptors.HIGH: VERTICAL_HIGH,
+    constants.VerticalPositionDescriptors.CENTER_HIGH: VERTICAL_CENTER_HIGH,
+    constants.VerticalPositionDescriptors.CENTER_LOW: VERTICAL_CENTER_LOW,
     constants.VerticalPositionDescriptors.LOW: VERTICAL_LOW,
     constants.VerticalPositionDescriptors.LOWEST: VERTICAL_LOWEST,
     constants.CAPABILITY_NOT_AVAILABLE: None,
@@ -90,6 +96,8 @@ SWING_MODES = [
     VERTICAL_SWING,
     VERTICAL_HIGHEST,
     VERTICAL_HIGH,
+    VERTICAL_CENTER_HIGH,
+    VERTICAL_CENTER_LOW,
     VERTICAL_LOW,
     VERTICAL_LOWEST,
 ]
