@@ -10,7 +10,7 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/danielkaldheim/ha_airstage/issues",
   "requirements": [
-    "pyairstage>=1.1.3"
+    "pyairstage @ git://github.com/ohshazbot/pyairstage.git@main"
   ],
   "version": "0.0.0-development"
 }
