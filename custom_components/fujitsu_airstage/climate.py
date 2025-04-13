@@ -17,6 +17,7 @@ from homeassistant.components.climate import (
     ClimateEntityFeature,
     HVACMode,
     PRESET_NONE,
+    ATTR_HVAC_MODE,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
@@ -160,8 +161,17 @@ class AirstageAC(AirstageAcEntity, ClimateEntity):
         if self._turn_on_before_set_temp and self.hvac_mode == HVACMode.OFF:
             await self.async_turn_on()
 
+        hvac_mode = kwargs.get(ATTR_HVAC_MODE)
+        needs_refresh = False
+        if hvac_mode is not None and hvac_mode != self.hvac_mode():
+            await self._ac.set_operation_mode(HA_STATE_TO_FUJITSU[hvac_mode])
+            needs_refresh = True
+
         if self.hvac_mode != HVACMode.FAN_ONLY:
             await self._ac.set_target_temperature(kwargs.get(ATTR_TEMPERATURE))
+            needs_refresh = True
+
+        if needs_refresh:
             await self.instance.coordinator.async_refresh()  # TODO: see if we can update entity
 
     @property
