@@ -18,12 +18,13 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import PlatformNotReady
+from homeassistant.exceptions import ConfigEntryNotReady, PlatformNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import (
     AIRSTAGE_LOCAL_RETRY,
+    AIRSTAGE_LOCAL_TIMEOUT_SECONDS,
     AIRSTAGE_RETRY,
     AIRSTAGE_SYNC_INTERVAL,
     AIRSTAGE_SYNC_LOCAL_INTERVAL,
@@ -91,6 +92,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         apiLocal = airstage_api.ApiLocal(
             session=async_get_clientsession(hass),
             retry=AIRSTAGE_LOCAL_RETRY,
+            timeout_seconds=AIRSTAGE_LOCAL_TIMEOUT_SECONDS,
             device_id=device_id,
             ip_address=device_ip,
         )
@@ -111,7 +113,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 asyncio.TimeoutError,
                 aiohttp.ServerTimeoutError,
             ) as err:
-                raise PlatformNotReady(
+                raise ConfigEntryNotReady(
                     f"Connection error while connecting to {device_ip}: {err}"
                 ) from err
 
