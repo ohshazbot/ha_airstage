@@ -87,7 +87,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         device_id = entry.data[CONF_DEVICE_ID]
         apiLocal = airstage_api.ApiLocal(
             session=async_get_clientsession(hass),
-            retry=AIRSTAGE_LOCAL_RETRY,
             device_id=device_id,
             ip_address=entry.data[CONF_IP_ADDRESS],
         )
