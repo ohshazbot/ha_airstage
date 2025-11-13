@@ -18,8 +18,9 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import (
-    ConfigEntryError,
     DataUpdateCoordinator,
+    PlatformNotReady,
+    UpdateFailed,
 )
 
 from .const import (
@@ -103,9 +104,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         async def async_get():
             try:
                 return await apiLocal.get_devices()
-            except airstage_api.ApiError as err:
-                raise ConfigEntryError(
-                    f"Timeout while connecting to device for data {entry.data} and options {entry.options}"
+            except Exception as err:
+                _LOGGER.warning(err, exc_info=err)
+                raise PlatformNotReady(
+                    f"Error while connecting to device for data {entry.data} and options {entry.options}"
                 ) from err
 
         coordinator = DataUpdateCoordinator(
