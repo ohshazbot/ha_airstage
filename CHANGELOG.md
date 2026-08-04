@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/danielkaldheim/ha_airstage/compare/v1.8.2...v1.8.3) (2026-08-04)
+
+
+### Bug Fixes
+
+* **coordinator:** raise UpdateFailed from update methods ([1a0be56](https://github.com/danielkaldheim/ha_airstage/commit/1a0be56575f1c11f954f803ff3731953dcfdc594))
+
 ## [1.8.2](https://github.com/danielkaldheim/ha_airstage/compare/v1.8.1...v1.8.2) (2026-08-04)
 
 
