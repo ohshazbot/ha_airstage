@@ -14,7 +14,7 @@
     "pyairstage"
   ],
   "requirements": [
-    "pyairstage>=3.2.2,<4"
+    "pyairstage @ git+https://github.com/ohshazbot/pyairstage@main"
   ],
   "version": "1.9.0"
 }
